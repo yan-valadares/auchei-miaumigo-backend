@@ -6,3 +6,109 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Tutor {
+  id         String       @id @default(uuid())
+  firstName  String
+  lastName   String
+  email      String       @unique
+  cpf        String       @unique
+  password   String
+  created_at DateTime     @default(now())
+  avatarUrl  String?
+  request    Request[]
+  lostAnimal LostAnimal[]
+  phone      Phone?
+  Address    Address?
+
+  @@map("tutors")
+}
+
+model Animal {
+  id          String    @id @default(uuid())
+  name        String
+  sex         String
+  weight      Decimal
+  age         String
+  ageGroup    String
+  species     String
+  size        String
+  tags        String[]
+  description String?
+  imageUrl    String?
+  created_at  DateTime  @default(now())
+  request     Request[]
+  ngo         Ngo       @relation(fields: [ngo_id], references: [id])
+  ngo_id      String
+
+  @@map("animals")
+}
+
+model Ngo {
+  id             String   @id @default(uuid())
+  ngoName        String
+  email          String   @unique
+  adminFirstName String
+  adminLastName  String
+  logoUrl        String?
+  password       String
+  created_at     DateTime @default(now())
+  phone          Phone?
+  animal         Animal[]
+  Address        Address?
+
+  @@map("ngos")
+}
+
+model LostAnimal {
+  id            String   @id @default(uuid())
+  name          String
+  state         String
+  city          String
+  lastPlaceSeen String
+  lostDate      DateTime
+  sex           String
+  created_at    DateTime @default(now())
+  imageUrl      String?
+  tutor         Tutor    @relation(fields: [tutor_id], references: [id])
+  tutor_id      String
+
+  @@map("lost_animals")
+}
+
+model Address {
+  id          String  @id @default(uuid())
+  cep         String
+  streetName  String
+  houseNumber String
+  houseType   String
+  state       String
+  city        String
+  tutor       Tutor?  @relation(fields: [tutor_id], references: [id])
+  tutor_id    String? @unique
+  ngo         Ngo?    @relation(fields: [ngo_id], references: [id])
+  ngo_id      String? @unique
+
+  @@map("addresses")
+}
+
+model Request {
+  id        String @id @default(uuid())
+  tutor     Tutor  @relation(fields: [tutor_id], references: [id])
+  tutor_id  String
+  animal    Animal @relation(fields: [animal_id], references: [id])
+  animal_id String
+
+  @@map("requests")
+}
+
+model Phone {
+  id       String  @id @default(uuid())
+  number   String
+  tutor    Tutor?  @relation(fields: [tutor_id], references: [id])
+  tutor_id String? @unique
+  ngo      Ngo?    @relation(fields: [ngo_id], references: [id])
+  ngo_id   String? @unique
+
+  @@map("phones")
+}
