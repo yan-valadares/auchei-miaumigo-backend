@@ -19,7 +19,7 @@ model Tutor {
   request    Request[]
   lostAnimal LostAnimal[]
   phone      Phone?
-  Address    Address?
+  address    Address?
 
   @@map("tutors")
 }
@@ -55,7 +55,7 @@ model Ngo {
   created_at     DateTime @default(now())
   phone          Phone?
   animal         Animal[]
-  Address        Address?
+  address        Address?
 
   @@map("ngos")
 }

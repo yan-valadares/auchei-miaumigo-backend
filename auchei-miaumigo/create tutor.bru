@@ -1,0 +1,30 @@
+meta {
+  name: create tutor
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3333/tutor
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "avatar": "https://example.com/avatar.jpg",
+    "cep": "12245-678",
+    "city": "São Paulo",
+    "confirmPassword": "Senh@Segura123",
+    "cpf": "123.456.789-00",
+    "email": "exempulo@email.com",
+    "firstName": "João",
+    "houseNumber": "123",
+    "houseType": "Apartamento",
+    "lastName": "Silva",
+    "password": "Senh@Segura123",
+    "phone": "11987656321",
+    "state": "SP",
+    "streetName": "Rua das Flores"
+  }
+}
