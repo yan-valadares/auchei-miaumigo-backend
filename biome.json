@@ -20,8 +20,7 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
-      "suspicious/noUselessConstructor": "off"
+      "recommended": true
     }
   },
   "files": {

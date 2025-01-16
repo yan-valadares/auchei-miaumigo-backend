@@ -1,8 +1,8 @@
 import { prisma } from '@/lib/prisma'
 import type { Prisma } from '@prisma/client'
-import { AddresssRepository } from '../addresses-repository'
+import type { AddressesRepository } from '../addresses-repository'
 
-export class PrismaAddressesRepository implements AddresssRepository {
+export class PrismaAddressesRepository implements AddressesRepository {
   async create(data: Prisma.AddressCreateInput) {
     const address = await prisma.address.create({
       data,

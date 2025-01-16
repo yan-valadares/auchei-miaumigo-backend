@@ -1,17 +1,14 @@
 import type { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { TutorRegisterUseCase } from '@/use-cases/tutor-register'
-import { PrismaTutorsRepository } from '@/repositories/prisma/prisma-tutors-repository'
-import { PrismaAddressesRepository } from '@/repositories/prisma/prisma-addresses-repository'
-import { PrismaPhonesRepository } from '@/repositories/prisma/prisma-phones-repository'
 import { TutorAlrealdyExistsError } from '@/use-cases/errors/tutor-already-exists-error'
 import { WrongCredentialsError } from '@/use-cases/errors/wrong-credentials-error'
+import { makeTutorRegisterUseCase } from '@/use-cases/factories/make-tutor-register-use-case'
 
 export async function tutorRegister(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
-  const tutorRegisterBody = z.object({
+  const tutorRegisterBodySchema = z.object({
     avatar: z.string(),
     firstName: z.string(),
     lastName: z.string(),
@@ -28,17 +25,10 @@ export async function tutorRegister(
     streetName: z.string(),
   })
 
-  const tutorInfomations = tutorRegisterBody.parse(request.body)
+  const tutorInfomations = tutorRegisterBodySchema.parse(request.body)
 
   try {
-    const prismaTutorsRepository = new PrismaTutorsRepository()
-    const prismaAddressesRepository = new PrismaAddressesRepository()
-    const prismaPhonesRepository = new PrismaPhonesRepository()
-    const tutorRegisterUseCase = new TutorRegisterUseCase(
-      prismaPhonesRepository,
-      prismaAddressesRepository,
-      prismaTutorsRepository
-    )
+    const tutorRegisterUseCase = makeTutorRegisterUseCase()
 
     await tutorRegisterUseCase.execute(tutorInfomations)
   } catch (err) {
@@ -46,7 +36,7 @@ export async function tutorRegister(
       return reply.status(409).send({ message: err.message })
     }
     if (err instanceof WrongCredentialsError) {
-      return reply.status(401).send({ message: err.message })
+      return reply.status(400).send({ message: err.message })
     }
 
     throw err

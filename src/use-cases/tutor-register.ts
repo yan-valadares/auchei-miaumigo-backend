@@ -1,9 +1,10 @@
-import { AddresssRepository } from '@/repositories/addresses-repository'
-import { PhonesRepository } from '@/repositories/phones-repository'
-import { TutorsRepository } from '@/repositories/tutors-repository'
+import type { AddressesRepository } from '@/repositories/addresses-repository'
+import type { PhonesRepository } from '@/repositories/phones-repository'
+import type { TutorsRepository } from '@/repositories/tutors-repository'
 import { hash } from 'bcryptjs'
 import { TutorAlrealdyExistsError } from './errors/tutor-already-exists-error'
 import { WrongCredentialsError } from './errors/wrong-credentials-error'
+import type { Tutor } from '@prisma/client'
 
 interface TutorRegisterUseCaseParams {
   avatar: string
@@ -22,10 +23,14 @@ interface TutorRegisterUseCaseParams {
   streetName: string
 }
 
+interface TutorRegisterUseCaseResponse {
+  tutor: Tutor
+}
+
 export class TutorRegisterUseCase {
   constructor(
+    private addressesRepository: AddressesRepository,
     private phonesRepository: PhonesRepository,
-    private addressesRepository: AddresssRepository,
     private tutorsRepository: TutorsRepository
   ) {}
   async execute({
@@ -43,7 +48,7 @@ export class TutorRegisterUseCase {
     phone,
     state,
     streetName,
-  }: TutorRegisterUseCaseParams) {
+  }: TutorRegisterUseCaseParams): Promise<TutorRegisterUseCaseResponse> {
     if (password !== confirmPassword) {
       throw new WrongCredentialsError()
     }
@@ -67,7 +72,7 @@ export class TutorRegisterUseCase {
 
     const hashedPassword = await hash(password, 6)
 
-    await this.tutorsRepository.create({
+    const tutor = await this.tutorsRepository.create({
       avatarUrl: avatar,
       firstName,
       lastName,
@@ -81,5 +86,7 @@ export class TutorRegisterUseCase {
         connect: { id: tutorAddress.id },
       },
     })
+
+    return { tutor }
   }
 }
