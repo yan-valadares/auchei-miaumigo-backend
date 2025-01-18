@@ -1,38 +1,38 @@
 import { InMemoryAddressesRepository } from '@/repositories/in-memory/in-memory-addresses-repository'
 import { InMemoryPhonesRepository } from '@/repositories/in-memory/in-memory-phones-repository'
-import { InMemoryTutorsRepository } from '@/repositories/in-memory/in-memory-tutors-repository'
+import { InMemoryNgosRepository } from '@/repositories/in-memory/in-memory-ngos-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { TutorRegisterUseCase } from './tutor-register'
+import { NgoRegisterUseCase } from './ngo-register'
 import { compare } from 'bcryptjs'
 import { EmailAlrealdyExistsError } from './errors/email-already-exists-error'
-import { makeCompleteTutor } from './factories/test/make-tutor'
+import { makeCompleteNgo, makeNgo } from './factories/test/make-ngo'
 
 let addressesRepository: InMemoryAddressesRepository
 let phonesRepository: InMemoryPhonesRepository
-let tutorsRepository: InMemoryTutorsRepository
-let sut: TutorRegisterUseCase
+let NgosRepository: InMemoryNgosRepository
+let sut: NgoRegisterUseCase
 
-describe('Tutor register use case', () => {
+describe('Ngo register use case', () => {
   beforeEach(() => {
     addressesRepository = new InMemoryAddressesRepository()
     phonesRepository = new InMemoryPhonesRepository()
-    tutorsRepository = new InMemoryTutorsRepository()
-    sut = new TutorRegisterUseCase(
+    NgosRepository = new InMemoryNgosRepository()
+    sut = new NgoRegisterUseCase(
       addressesRepository,
       phonesRepository,
-      tutorsRepository
+      NgosRepository
     )
   })
 
   it('should be able to register', async () => {
-    const { tutor } = await sut.execute(makeCompleteTutor())
+    const { ngo } = await sut.execute(makeCompleteNgo())
 
-    expect(tutor.id).toEqual(expect.any(String))
+    expect(ngo.id).toEqual(expect.any(String))
   })
 
-  it('should hash tutor password upon register', async () => {
-    const { tutor } = await sut.execute(
-      makeCompleteTutor({
+  it('should hash ngo password upon register', async () => {
+    const { ngo } = await sut.execute(
+      makeCompleteNgo({
         password: 'Senh@segura123',
         confirmPassword: 'Senh@segura123',
       })
@@ -40,7 +40,7 @@ describe('Tutor register use case', () => {
 
     const isPasswordCorrectlyHashed = await compare(
       'Senh@segura123',
-      tutor.password
+      ngo.password
     )
 
     expect(isPasswordCorrectlyHashed).toBe(true)
@@ -49,10 +49,10 @@ describe('Tutor register use case', () => {
   it('should not be able to register with same email', async () => {
     const email = 'johndoe@email.com'
 
-    await sut.execute(makeCompleteTutor({ email }))
+    await sut.execute(makeCompleteNgo({ email }))
 
     await expect(() =>
-      sut.execute(makeCompleteTutor({ email }))
+      sut.execute(makeCompleteNgo({ email }))
     ).rejects.toBeInstanceOf(EmailAlrealdyExistsError)
   })
 })

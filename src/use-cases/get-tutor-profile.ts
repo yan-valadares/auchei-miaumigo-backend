@@ -1,6 +1,6 @@
 import type { TutorsRepository } from '@/repositories/tutors-repository'
-import type { Tutor } from '@prisma/client'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import type { Tutor } from '@prisma/client'
 
 interface GetTutorProfileUseCaseRequest {
   tutorId: string

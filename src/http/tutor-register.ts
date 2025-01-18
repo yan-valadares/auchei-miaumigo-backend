@@ -1,6 +1,6 @@
 import type { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { TutorAlrealdyExistsError } from '@/use-cases/errors/tutor-already-exists-error'
+import { EmailAlrealdyExistsError } from '@/use-cases/errors/email-already-exists-error'
 import { WrongCredentialsError } from '@/use-cases/errors/wrong-credentials-error'
 import { makeTutorRegisterUseCase } from '@/use-cases/factories/make-tutor-register-use-case'
 
@@ -10,18 +10,24 @@ export async function tutorRegister(
 ) {
   const tutorRegisterBodySchema = z.object({
     avatar: z.string(),
-    firstName: z.string(),
-    lastName: z.string(),
+    firstName: z.string().min(2),
+    lastName: z.string().min(2),
     email: z.string().email(),
-    cpf: z.string(),
-    password: z.string(),
-    confirmPassword: z.string(),
-    phone: z.string(),
-    cep: z.string(),
+    cpf: z.string().min(11).max(11),
+    password: z
+      .string()
+      .min(8)
+      .refine(value => /[A-Z]/.test(value))
+      .refine(value => /[a-z]/.test(value))
+      .refine(value => /[0-9]/.test(value))
+      .refine(value => /[#?!@$%^&*-]/.test(value)),
+    confirmPassword: z.string().min(8),
+    phone: z.string().min(10),
+    cep: z.string().min(8).max(8),
     city: z.string(),
-    state: z.string(),
-    houseNumber: z.string(),
-    houseType: z.string(),
+    state: z.string().min(2).max(2),
+    houseNumber: z.string().max(4),
+    houseType: z.enum(['house', 'apartment']),
     streetName: z.string(),
   })
 
@@ -32,7 +38,7 @@ export async function tutorRegister(
 
     await tutorRegisterUseCase.execute(tutorInfomations)
   } catch (err) {
-    if (err instanceof TutorAlrealdyExistsError) {
+    if (err instanceof EmailAlrealdyExistsError) {
       return reply.status(409).send({ message: err.message })
     }
     if (err instanceof WrongCredentialsError) {

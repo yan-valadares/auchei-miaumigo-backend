@@ -80,7 +80,7 @@ model Address {
   id          String  @id @default(uuid())
   cep         String
   streetName  String
-  houseNumber String
+  houseNumber String?
   houseType   String
   state       String
   city        String
@@ -98,6 +98,7 @@ model Request {
   tutor_id  String
   animal    Animal @relation(fields: [animal_id], references: [id])
   animal_id String
+  status    String
 
   @@map("requests")
 }

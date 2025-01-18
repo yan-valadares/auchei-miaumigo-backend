@@ -2,11 +2,12 @@ import type { AddressesRepository } from '@/repositories/addresses-repository'
 import type { PhonesRepository } from '@/repositories/phones-repository'
 import type { TutorsRepository } from '@/repositories/tutors-repository'
 import { hash } from 'bcryptjs'
-import { TutorAlrealdyExistsError } from './errors/tutor-already-exists-error'
+import { EmailAlrealdyExistsError } from './errors/email-already-exists-error'
 import { WrongCredentialsError } from './errors/wrong-credentials-error'
 import type { Tutor } from '@prisma/client'
 
-interface TutorRegisterUseCaseParams {
+export interface TutorRegisterUseCaseParams {
+  id?: string | null
   avatar: string
   cep: string
   city: string
@@ -55,7 +56,7 @@ export class TutorRegisterUseCase {
 
     const tutorWithSameEmail = await this.tutorsRepository.findByEmail(email)
 
-    if (tutorWithSameEmail) throw new TutorAlrealdyExistsError()
+    if (tutorWithSameEmail) throw new EmailAlrealdyExistsError()
 
     const tutorPhone = await this.phonesRepository.create({
       number: phone,

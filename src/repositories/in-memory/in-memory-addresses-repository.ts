@@ -10,9 +10,9 @@ export class InMemoryAddressesRepository implements AddressesRepository {
       cep: data.cep,
       city: data.city,
       state: data.state,
-      houseNumber: data.houseNumber,
+      houseNumber: data.houseNumber ?? null,
       houseType: data.houseType,
-      streetName: data.houseNumber,
+      streetName: data.streetName ?? '',
       tutor_id: null,
       ngo_id: null,
     }
