@@ -4,12 +4,8 @@ import { generateRandomNumbersString } from '@/utils/random-numbers-generator'
 import type { Tutor } from '@prisma/client'
 import { hash } from 'bcryptjs'
 import { randomUUID } from 'node:crypto'
+import { getRandomPropertyType } from '@/utils/get-random-property'
 
-function getRandomPropertyType(): 'house' | 'apartment' {
-  const options: ('house' | 'apartment')[] = ['house', 'apartment']
-  const randomIndex = Math.floor(Math.random() * options.length)
-  return options[randomIndex]
-}
 export function makeCompleteTutor(
   override: Partial<TutorRegisterUseCaseParams> = {},
   id?: string
@@ -25,7 +21,7 @@ export function makeCompleteTutor(
     cep: generateRandomNumbersString(8),
     city: faker.location.city(),
     houseNumber: generateRandomNumbersString(3),
-    houseType: getRandomPropertyType(),
+    houseType: getRandomPropertyType('house', 'apartment'),
     password: fakePassword,
     confirmPassword: fakePassword,
     phone: generateRandomNumbersString(11),

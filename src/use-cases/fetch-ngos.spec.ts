@@ -6,7 +6,7 @@ import { FetchNgosUseCase } from './fetch-ngos'
 let ngosRepository: InMemoryNgosRepository
 let sut: FetchNgosUseCase
 
-describe('Fetch use case', () => {
+describe('Fetch ngos use case', () => {
   beforeEach(() => {
     ngosRepository = new InMemoryNgosRepository()
     sut = new FetchNgosUseCase(ngosRepository)

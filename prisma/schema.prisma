@@ -28,7 +28,7 @@ model Animal {
   id          String    @id @default(uuid())
   name        String
   sex         String
-  weight      Decimal
+  weight      Float
   age         String
   ageGroup    String
   species     String
