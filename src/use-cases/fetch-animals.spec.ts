@@ -13,7 +13,7 @@ describe('Fetch animals use case', () => {
   })
 
   it('should be able to fetch an animal', async () => {
-    await animalsRepository.create(await makeAnimal())
+    await animalsRepository.create(makeAnimal())
 
     const result = await sut.execute({ page: 1 })
 
@@ -28,7 +28,7 @@ describe('Fetch animals use case', () => {
 
   it('should paginate the animals', async () => {
     for (let i = 0; i < 15; i++) {
-      await animalsRepository.create(await makeAnimal())
+      await animalsRepository.create(makeAnimal())
     }
 
     const result = await sut.execute({ page: 2 })

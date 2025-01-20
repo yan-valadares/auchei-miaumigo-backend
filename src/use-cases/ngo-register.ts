@@ -4,7 +4,7 @@ import { hash } from 'bcryptjs'
 import { EmailAlrealdyExistsError } from './errors/email-already-exists-error'
 import { WrongCredentialsError } from './errors/wrong-credentials-error'
 
-import type { NgosRepository } from '@/repositories/ngos-repository'
+import type { NgosRepository } from 'ngos-repository'
 import type { Ngo } from '@prisma/client'
 
 export interface NgoRegisterUseCaseParams {

@@ -1,7 +1,7 @@
 ## Funcionalidades
-- [ ] deve ser possível buscar uma lista com animais perdidos mais recentes (12)
-- [ ] deve ser possível visualizar as informações de um animal perdido específico
-- [ ] deve ser possível filtrar os animais perdidos por estado e cidade
+- [x] deve ser possível buscar uma lista com animais perdidos mais recentes (12)
+- [x] deve ser possível visualizar as informações de um animal perdido específico
+- [x] deve ser possível filtrar os animais perdidos por estado e cidade
 
 ### ONG
 - [ ] deve ser possível buscar todos os animais da minha ong por meio de uma paginação (9 por página)

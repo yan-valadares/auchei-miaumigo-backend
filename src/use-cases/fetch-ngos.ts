@@ -1,4 +1,4 @@
-import type { NgosRepository } from '@/repositories/ngos-repository'
+import type { NgosRepository } from 'ngos-repository'
 import type { Ngo } from '@prisma/client'
 
 interface FetchNgosUseCaseParams {

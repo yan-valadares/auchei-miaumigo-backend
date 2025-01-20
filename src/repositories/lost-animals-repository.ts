@@ -8,5 +8,6 @@ export interface findManyParams {
 export interface LostAnimalsRepository {
   findById(id: string): Promise<LostAnimal | null>
   findMany(page: number, params?: findManyParams): Promise<LostAnimal[]>
+  findOldest(): Promise<LostAnimal[]>
   create(data: Prisma.LostAnimalCreateInput): Promise<LostAnimal>
 }

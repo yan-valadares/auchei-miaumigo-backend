@@ -1,14 +1,14 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { makeCompleteLostAnimal } from './factories/test/make-lost-animal'
-import { InMemoryLostLostAnimalsRepository } from '@/repositories/in-memory/in-memory-lost-animals-repository'
 import { CreateLostAnimalUseCase } from './create-lost-animal'
+import { InMemoryLostAnimalsRepository } from '@/repositories/in-memory/in-memory-lost-animals-repository'
 
-let lostAnimalsRepository: InMemoryLostLostAnimalsRepository
+let lostAnimalsRepository: InMemoryLostAnimalsRepository
 let sut: CreateLostAnimalUseCase
 
 describe('Create lost animal use case', () => {
   beforeEach(() => {
-    lostAnimalsRepository = new InMemoryLostLostAnimalsRepository()
+    lostAnimalsRepository = new InMemoryLostAnimalsRepository()
     sut = new CreateLostAnimalUseCase(lostAnimalsRepository)
   })
 

@@ -1,5 +1,5 @@
 import type { Prisma, Ngo } from '@prisma/client'
-import type { findManyParams, NgosRepository } from '../ngos-repository'
+import type { findManyParams, NgosRepository } from '../../../ngos-repository'
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryNgosRepository implements NgosRepository {
