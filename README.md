@@ -20,9 +20,9 @@
 ### Tutor
 - [x] deve ser possível logar na aplicação como tutor
 - [x] deve ser possível cadastrar um tutor
-- [ ] deve ser possível cadastrar um animal perdido
-- [ ] deve ser possível visualizar uma lista dos animais para adoção (12)
-- [ ] deve ser possível filtrar os animais para adoção por estado, cidade, espécie do animal (gato ou cachorro), idade do animal (adulto, filhote, idoso), porte do animal (grande, médio, pequeno), sexo do animal(macho ou fêmea) e ong
+- [x] deve ser possível cadastrar um animal perdido
+- [x] deve ser possível visualizar uma lista dos animais para adoção (12)
+- [x] deve ser possível filtrar os animais para adoção por estado, cidade, espécie do animal (gato ou cachorro), idade do animal (adulto, filhote, idoso), porte do animal (grande, médio, pequeno), sexo do animal(macho ou fêmea) e ong
 - [x] deve ser possível buscar uma lista com ongs (12)
 - [ ] deve ser possível filtrar ongs por estado e cidade
 - [x] deve ser possível buscar as informações da minha conta

@@ -27,7 +27,7 @@ export class InMemoryAnimalsRepository implements AnimalsRepository {
   }
   async create(
     data: Prisma.AnimalCreateInput,
-    ngo_id?: string
+    ngoId?: string
   ): Promise<Animal> {
     const animal: Animal = {
       id: data.id ?? randomUUID(),
@@ -42,7 +42,7 @@ export class InMemoryAnimalsRepository implements AnimalsRepository {
       size: data.size,
       tags: Array.isArray(data.tags) ? data.tags : [],
       weight: data.weight,
-      ngo_id: ngo_id ?? randomUUID(),
+      ngo_id: ngoId ?? randomUUID(),
     }
 
     this.items.push(animal)
