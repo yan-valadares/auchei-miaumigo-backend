@@ -13,7 +13,7 @@
 - [x] deve ser possível visualizar as informações dos tutores
 - [ ] deve ser possível aprovar ou recusar uma solicitação que esteja com status de em análise
 - [x] deve ser possível verificar as informações da minha ong
-- [ ] deve ser possível atualizar as informações da minha ong
+- [x] deve ser possível atualizar as informações da minha ong
 - [x] deve ser possível logar na aplicação como ong
 - [x] deve ser possível cadastrar uma ong
 
@@ -26,4 +26,4 @@
 - [x] deve ser possível buscar uma lista com ongs (12)
 - [ ] deve ser possível filtrar ongs por estado e cidade
 - [x] deve ser possível buscar as informações da minha conta
-- [ ] deve ser possível atualizar as informações da minha conta
+- [x] deve ser possível atualizar as informações da minha conta

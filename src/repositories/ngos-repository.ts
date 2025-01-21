@@ -10,4 +10,5 @@ export interface NgosRepository {
   findByEmail(email: string): Promise<Ngo | null>
   findMany(page: number, params?: findManyParams): Promise<Ngo[]>
   create(data: Prisma.NgoCreateInput): Promise<Ngo>
+  update(data: Prisma.NgoUpdateInput): Promise<Ngo>
 }

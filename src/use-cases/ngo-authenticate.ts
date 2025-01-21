@@ -1,4 +1,4 @@
-import type { NgosRepository } from 'ngos-repository'
+import type { NgosRepository } from '@/repositories/ngos-repository'
 import { WrongCredentialsError } from './errors/wrong-credentials-error'
 import { compare } from 'bcryptjs'
 import type { Ngo } from '@prisma/client'

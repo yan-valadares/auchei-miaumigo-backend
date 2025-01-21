@@ -36,4 +36,18 @@ export class InMemoryTutorsRepository implements TutorsRepository {
 
     return tutor
   }
+
+  async update(data: Prisma.TutorUpdateInput): Promise<Tutor> {
+    const tutorIndex = this.items.findIndex(item => item.id === data.id)
+
+    this.items[tutorIndex] = {
+      ...this.items[tutorIndex],
+      ...data,
+      id: data.id,
+    } as Tutor
+
+    const updatedTutor = this.items[tutorIndex]
+
+    return updatedTutor
+  }
 }

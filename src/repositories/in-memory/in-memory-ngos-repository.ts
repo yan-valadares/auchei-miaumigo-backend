@@ -1,5 +1,5 @@
 import type { Prisma, Ngo } from '@prisma/client'
-import type { findManyParams, NgosRepository } from '../../../ngos-repository'
+import type { findManyParams, NgosRepository } from '../ngos-repository'
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryNgosRepository implements NgosRepository {
@@ -38,5 +38,19 @@ export class InMemoryNgosRepository implements NgosRepository {
     this.items.push(ngo)
 
     return ngo
+  }
+
+  async update(data: Prisma.TutorUpdateInput): Promise<Ngo> {
+    const ngoIndex = this.items.findIndex(item => item.id === data.id)
+
+    this.items[ngoIndex] = {
+      ...this.items[ngoIndex],
+      ...data,
+      id: data.id,
+    } as Ngo
+
+    const updatedNgo = this.items[ngoIndex]
+
+    return updatedNgo
   }
 }
