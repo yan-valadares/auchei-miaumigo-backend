@@ -25,6 +25,12 @@ export class InMemoryAnimalsRepository implements AnimalsRepository {
 
     return animal
   }
+
+  async delete(id: string) {
+    const index = this.items.findIndex(item => item.id === id)
+
+    this.items.splice(index, 1)
+  }
   async create(
     data: Prisma.AnimalCreateInput,
     ngoId?: string

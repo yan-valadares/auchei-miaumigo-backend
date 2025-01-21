@@ -14,4 +14,5 @@ export interface AnimalsRepository {
   findById(id: string): Promise<Animal | null>
   findMany(page: number, params?: findManyParams): Promise<Animal[]>
   create(data: Prisma.AnimalCreateInput): Promise<Animal>
+  delete(id: string): void
 }

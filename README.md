@@ -6,6 +6,7 @@
 ### ONG
 - [ ] deve ser possível buscar todos os animais da minha ong por meio de uma paginação (9 por página)
 - [x] deve ser possível cadastrar um novo animal
+- [x] deve ser possível excluir um animal
 - [ ] deve ser possível filtrar os animais da minha ong por porte, sexo, espécie e nome
 - [ ] deve ser possível buscar as requisições feitas para adoção de animais da minha ong (17)
 - [ ] deve ser possível filtrar as requisições realizadas por espécie, nome do tutor, nome do animal e status
