@@ -31,6 +31,10 @@ export class InMemoryAnimalsRepository implements AnimalsRepository {
 
     this.items.splice(index, 1)
   }
+
+  async findManyByNgoId(page: number, id: string): Promise<Animal[]> {
+    throw new Error('Method not implemented.')
+  }
   async create(
     data: Prisma.AnimalCreateInput,
     ngoId?: string

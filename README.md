@@ -8,7 +8,7 @@
 - [x] deve ser possível cadastrar um novo animal
 - [x] deve ser possível excluir um animal
 - [ ] deve ser possível filtrar os animais da minha ong por porte, sexo, espécie e nome
-- [ ] deve ser possível buscar as requisições feitas para adoção de animais da minha ong (17)
+- [ ] deve ser possível buscar as requisições feitas para adoção de animais da minha ong (20)
 - [ ] deve ser possível filtrar as requisições realizadas por espécie, nome do tutor, nome do animal e status
 - [x] deve ser possível visualizar as informações dos animais
 - [x] deve ser possível visualizar as informações dos tutores
@@ -21,6 +21,7 @@
 ### Tutor
 - [x] deve ser possível logar na aplicação como tutor
 - [x] deve ser possível cadastrar um tutor
+- [x] deve ser possível criar uma requisição de adoção
 - [x] deve ser possível cadastrar um animal perdido
 - [x] deve ser possível visualizar uma lista dos animais para adoção (12)
 - [x] deve ser possível filtrar os animais para adoção por estado, cidade, espécie do animal (gato ou cachorro), idade do animal (adulto, filhote, idoso), porte do animal (grande, médio, pequeno), sexo do animal(macho ou fêmea) e ong
