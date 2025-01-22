@@ -12,6 +12,20 @@ export class PrismaTutorsRepository implements TutorsRepository {
 
     return tutor
   }
+
+  async update(data: Prisma.TutorUpdateInput): Promise<Tutor> {
+    const tutorId = data.id?.toString()
+
+    if (tutorId === null) throw new Error()
+
+    const tutor = await prisma.tutor.update({
+      where: { id: tutorId },
+      data,
+    })
+
+    return tutor
+  }
+
   async findByEmail(email: string) {
     const tutor = await prisma.tutor.findUnique({
       where: {

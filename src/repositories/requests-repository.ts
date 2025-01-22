@@ -7,7 +7,7 @@ export interface findManyParams {
   status?: string
 }
 
-interface CreateRequestProps {
+export interface CreateRequestProps {
   tutorId: string
   animalId: string
   status: string

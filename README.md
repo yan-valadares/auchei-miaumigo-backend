@@ -4,7 +4,7 @@
 - [x] deve ser possível filtrar os animais perdidos por estado e cidade
 
 ### ONG
-- [ ] deve ser possível buscar todos os animais da minha ong por meio de uma paginação (9 por página)
+- [x] deve ser possível buscar todos os animais da minha ong por meio de uma paginação (9 por página)
 - [x] deve ser possível cadastrar um novo animal
 - [x] deve ser possível excluir um animal
 - [ ] deve ser possível filtrar os animais da minha ong por porte, sexo, espécie e nome
