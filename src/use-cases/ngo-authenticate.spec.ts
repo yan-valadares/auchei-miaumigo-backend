@@ -27,8 +27,6 @@ describe('Ngo authenticate use case', () => {
       password: 'Senh@segura123',
     })
 
-    console.log(ngo.password)
-
     expect(ngo.id).toEqual(expect.any(String))
   })
 

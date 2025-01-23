@@ -14,13 +14,7 @@ export async function tutorRegister(
     lastName: z.string().min(2),
     email: z.string().email(),
     cpf: z.string().min(11).max(11),
-    password: z
-      .string()
-      .min(8)
-      .refine(value => /[A-Z]/.test(value))
-      .refine(value => /[a-z]/.test(value))
-      .refine(value => /[0-9]/.test(value))
-      .refine(value => /[#?!@$%^&*-]/.test(value)),
+    password: z.string().min(8),
     confirmPassword: z.string().min(8),
     phone: z.string().min(10),
     cep: z.string().min(8).max(8),
