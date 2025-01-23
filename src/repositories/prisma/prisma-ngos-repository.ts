@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma'
 
 export class PrismaNgosRepository implements NgosRepository {
   async findById(id: string): Promise<Ngo | null> {
-    const ngo = await prisma.ngo.findUniqueOrThrow({
+    const ngo = await prisma.ngo.findUnique({
       where: {
         id,
       },
@@ -13,7 +13,7 @@ export class PrismaNgosRepository implements NgosRepository {
     return ngo
   }
   async findByEmail(email: string): Promise<Ngo | null> {
-    const ngo = await prisma.ngo.findUniqueOrThrow({
+    const ngo = await prisma.ngo.findUnique({
       where: {
         email,
       },

@@ -1,0 +1,29 @@
+meta {
+  name: Create Ngo
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3333/ngo
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "logoUrl": "https://example.com/avatar.jpg",
+    "ngoName": "Cuidados",
+    "adminFirstName": "John",
+    "adminLastName": "Doe",
+    "email": "johndoe@email.com", 
+    "password": "Senh@Segura123",
+    "confirmPassword": "Senh@Segura123",
+    "phone": "11987656321",
+    "cep": "12245678",
+    "city": "São Paulo",
+    "state": "SP",
+    "houseNumber": "123",
+    "streetName": "Rua das Flores"
+  }
+}
