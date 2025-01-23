@@ -17,7 +17,23 @@ export async function ngoAuthenticate(
   try {
     const ngoAuthenticateUseCase = makeNgoAuthenticateUseCase()
 
-    await ngoAuthenticateUseCase.authenticate({ email, password })
+    const { ngo } = await ngoAuthenticateUseCase.authenticate({
+      email,
+      password,
+    })
+
+    const token = await reply.jwtSign(
+      {},
+      {
+        sign: {
+          sub: ngo.id,
+        },
+      }
+    )
+
+    return reply.status(200).send({
+      token,
+    })
   } catch (err) {
     if (err instanceof WrongCredentialsError) {
       return reply.status(400).send({ message: err.message })
@@ -25,6 +41,4 @@ export async function ngoAuthenticate(
 
     throw err
   }
-
-  return reply.status(200).send()
 }

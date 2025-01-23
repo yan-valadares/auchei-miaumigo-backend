@@ -17,7 +17,23 @@ export async function tutorAuthenticate(
   try {
     const tutorAuthenticateUseCase = makeTutorAuthenticateUseCase()
 
-    await tutorAuthenticateUseCase.authenticate({ email, password })
+    const { tutor } = await tutorAuthenticateUseCase.authenticate({
+      email,
+      password,
+    })
+
+    const token = await reply.jwtSign(
+      {},
+      {
+        sign: {
+          sub: tutor.id,
+        },
+      }
+    )
+
+    return reply.status(200).send({
+      token,
+    })
   } catch (err) {
     if (err instanceof WrongCredentialsError) {
       return reply.status(400).send({ message: err.message })
@@ -25,6 +41,4 @@ export async function tutorAuthenticate(
 
     throw err
   }
-
-  return reply.status(200).send()
 }
