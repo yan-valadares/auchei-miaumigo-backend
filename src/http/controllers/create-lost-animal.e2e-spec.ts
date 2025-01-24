@@ -1,8 +1,9 @@
 import { createApp } from '../create-test-app'
-import { makeCompleteNgo } from '@/use-cases/factories/test/make-ngo'
 import { makeCompleteAnimal } from '@/use-cases/factories/test/make-animal'
+import { makeLostAnimal } from '@/use-cases/factories/test/make-lost-animal'
+import { makeCompleteTutor } from '@/use-cases/factories/test/make-tutor'
 
-describe('Create animal (e2e)', () => {
+describe('Create lost animal (e2e)', () => {
   let app: ReturnType<typeof createApp>
 
   beforeAll(async () => {
@@ -14,32 +15,32 @@ describe('Create animal (e2e)', () => {
     await app.close()
   })
 
-  test('[POST] /animals ', async () => {
-    const ngo = makeCompleteNgo()
+  test('[POST] /lost-animal ', async () => {
+    const tutor = makeCompleteTutor()
 
     await app.inject({
       method: 'POST',
-      url: '/ngo',
-      payload: ngo,
+      url: '/tutor',
+      payload: tutor,
     })
 
     const { body } = await app.inject({
       method: 'POST',
-      url: '/ngo/sessions',
+      url: '/tutor/sessions',
       payload: {
-        email: ngo.email,
-        password: ngo.password,
+        email: tutor.email,
+        password: tutor.password,
       },
     })
 
     const { token } = JSON.parse(body)
 
-    const animal = makeCompleteAnimal()
+    const lostAnimal = makeLostAnimal()
 
     const response = await app.inject({
       method: 'POST',
-      url: '/animals',
-      payload: animal,
+      url: '/lost-animals',
+      payload: lostAnimal,
       headers: {
         Authorization: `Bearer ${token}`,
       },
