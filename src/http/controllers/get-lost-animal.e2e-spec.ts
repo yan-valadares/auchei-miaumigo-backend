@@ -1,12 +1,15 @@
 import { createApp } from '../create-test-app'
 import { makeLostAnimal } from '@/use-cases/factories/test/make-lost-animal'
 import { makeCompleteTutor } from '@/use-cases/factories/test/make-tutor'
+import { PrismaClient } from '@prisma/client'
 
-describe('Create lost animal (e2e)', () => {
+describe('Get lost animal (e2e)', () => {
   let app: ReturnType<typeof createApp>
+  let prisma: PrismaClient
 
   beforeAll(async () => {
     app = createApp()
+    prisma = new PrismaClient()
     await app.ready()
   })
 
@@ -14,7 +17,7 @@ describe('Create lost animal (e2e)', () => {
     await app.close()
   })
 
-  test('[POST] /lost-animal ', async () => {
+  test('[GET] /lost-animals ', async () => {
     const tutor = makeCompleteTutor()
 
     await app.inject({
@@ -23,7 +26,7 @@ describe('Create lost animal (e2e)', () => {
       payload: tutor,
     })
 
-    const { body } = await app.inject({
+    const { body, statusCode } = await app.inject({
       method: 'POST',
       url: '/tutor/sessions',
       payload: {
@@ -36,7 +39,7 @@ describe('Create lost animal (e2e)', () => {
 
     const lostAnimal = makeLostAnimal()
 
-    const response = await app.inject({
+    await app.inject({
       method: 'POST',
       url: '/lost-animals',
       payload: lostAnimal,
@@ -45,6 +48,23 @@ describe('Create lost animal (e2e)', () => {
       },
     })
 
-    expect(response.statusCode).toEqual(201)
+    const createdLostAnimal = await prisma.lostAnimal.findFirst({
+      where: {
+        name: lostAnimal.name,
+      },
+    })
+
+    const id = createdLostAnimal?.id
+
+    const url = `/lost-animals/${id}`
+
+    console.log(url)
+
+    const response = await app.inject({
+      method: 'GET',
+      url,
+    })
+
+    expect(response.statusCode).toEqual(200)
   })
 })

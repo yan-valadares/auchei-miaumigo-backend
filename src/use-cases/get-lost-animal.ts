@@ -11,12 +11,14 @@ interface GetLostAnimalUseCaseResponse {
 }
 
 export class GetLostAnimalUseCase {
-  constructor(private lostanimalsRepository: LostAnimalsRepository) {}
+  constructor(private lostAnimalsRepository: LostAnimalsRepository) {}
 
   async execute({
     lostAnimalId,
   }: GetLostAnimalUseCaseRequest): Promise<GetLostAnimalUseCaseResponse> {
-    const lostAnimal = await this.lostanimalsRepository.findById(lostAnimalId)
+    const lostAnimal = await this.lostAnimalsRepository.findById(lostAnimalId)
+
+    console.log('PASSOU AQUI')
 
     if (!lostAnimal) throw new ResourceNotFoundError()
 
