@@ -39,7 +39,7 @@ export class PrismaRequestsRepository implements RequestsRepository {
     })
   }
   async findById(requestId: string): Promise<Request | null> {
-    const request = await prisma.request.findUniqueOrThrow({
+    const request = await prisma.request.findUnique({
       where: { id: requestId },
     })
 

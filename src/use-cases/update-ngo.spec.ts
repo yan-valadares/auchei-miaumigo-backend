@@ -3,7 +3,7 @@ import { InMemoryPhonesRepository } from '@/repositories/in-memory/in-memory-pho
 import { InMemoryNgosRepository } from '@/repositories/in-memory/in-memory-ngos-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { makeNgo } from './factories/test/make-ngo'
-import { UpdateNgoUseCase } from './update-ngo-profile'
+import { UpdateNgoUseCase } from './update-ngo'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 let addressesRepository: InMemoryAddressesRepository

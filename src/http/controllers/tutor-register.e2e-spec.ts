@@ -21,9 +21,7 @@ describe('Tutor register (e2e)', () => {
   })
 
   test('[POST] /tutor ', async () => {
-    const tutor = makeCompleteTutor({
-      email: 'johndoe@email.com',
-    })
+    const tutor = makeCompleteTutor()
 
     const response = await app.inject({
       method: 'POST',

@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client'
 import { createApp } from '../create-test-app'
 import { makeCompleteTutor } from '@/use-cases/factories/test/make-tutor'
 
-describe('Get my tutor profile (e2e)', () => {
+describe('Get tutor (e2e)', () => {
   let app: ReturnType<typeof createApp>
   let prisma: PrismaClient
 
@@ -20,7 +20,7 @@ describe('Get my tutor profile (e2e)', () => {
     await prisma.tutor.deleteMany()
   })
 
-  test('[POST] /tutor/my-profile ', async () => {
+  test('[GET] /tutor/id ', async () => {
     const tutor = makeCompleteTutor()
 
     await app.inject({
@@ -28,6 +28,12 @@ describe('Get my tutor profile (e2e)', () => {
       url: '/tutor',
       payload: tutor,
     })
+
+    const createdTutor = await prisma.tutor.findUnique({
+      where: { email: tutor.email },
+    })
+
+    const id = createdTutor?.id
 
     const { body } = await app.inject({
       method: 'POST',
@@ -40,9 +46,11 @@ describe('Get my tutor profile (e2e)', () => {
 
     const { token } = JSON.parse(body)
 
+    const url = `/tutor/${id}`
+
     const response = await app.inject({
       method: 'GET',
-      url: '/tutor/my-profile',
+      url,
       headers: {
         Authorization: `Bearer ${token}`,
       },

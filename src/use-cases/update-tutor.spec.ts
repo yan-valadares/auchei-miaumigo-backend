@@ -3,7 +3,7 @@ import { InMemoryPhonesRepository } from '@/repositories/in-memory/in-memory-pho
 import { InMemoryTutorsRepository } from '@/repositories/in-memory/in-memory-tutors-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { makeTutor } from './factories/test/make-tutor'
-import { UpdateTutorUseCase } from './update-tutor-profile'
+import { UpdateTutorUseCase } from './update-tutor'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 let addressesRepository: InMemoryAddressesRepository
@@ -57,7 +57,7 @@ describe('Tutor register use case', () => {
       lastName: 'Doe',
       cpf: '11122233300',
       email: 'johndoe@email.com',
-      avatarUrl: 'http://bing.com',
+      avatar: 'http://bing.com',
     })
 
     const updatedTutor = await tutorsRepository.findById(tutor.id)

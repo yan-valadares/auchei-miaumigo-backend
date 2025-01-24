@@ -25,7 +25,7 @@ export class PrismaAddressesRepository implements AddressesRepository {
   }
 
   async findByTutorId(tutorId: string): Promise<Address | null> {
-    const address = await prisma.address.findUniqueOrThrow({
+    const address = await prisma.address.findUnique({
       where: { tutor_id: tutorId },
     })
 
@@ -33,7 +33,7 @@ export class PrismaAddressesRepository implements AddressesRepository {
   }
 
   async findByNgoId(ngoId: string): Promise<Address | null> {
-    const address = await prisma.address.findUniqueOrThrow({
+    const address = await prisma.address.findUnique({
       where: { ngo_id: ngoId },
     })
 

@@ -25,14 +25,14 @@ export class PrismaPhonesRepository implements PhonesRepository {
   }
 
   async findByTutorId(tutorId: string): Promise<Phone | null> {
-    const phone = await prisma.phone.findUniqueOrThrow({
+    const phone = await prisma.phone.findUnique({
       where: { tutor_id: tutorId },
     })
 
     return phone
   }
   async findByNgoId(NgoId: string): Promise<Phone | null> {
-    const phone = await prisma.phone.findUniqueOrThrow({
+    const phone = await prisma.phone.findUnique({
       where: { ngo_id: NgoId },
     })
 

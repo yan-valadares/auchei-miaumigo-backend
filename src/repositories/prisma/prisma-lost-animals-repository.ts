@@ -7,7 +7,7 @@ import type {
 
 export class PrismaLostAnimalsRepository implements LostAnimalsRepository {
   async findById(id: string): Promise<LostAnimal | null> {
-    const lostAnimal = await prisma.lostAnimal.findFirstOrThrow({
+    const lostAnimal = await prisma.lostAnimal.findUnique({
       where: {
         id,
       },

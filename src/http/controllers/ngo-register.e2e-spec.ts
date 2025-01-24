@@ -21,17 +21,13 @@ describe('Ngo register (e2e)', () => {
   })
 
   test('[POST] /ngo ', async () => {
-    const ngo = makeCompleteNgo({
-      email: 'cuidadogs@email.com',
-    })
+    const ngo = makeCompleteNgo()
 
     const response = await app.inject({
       method: 'POST',
       url: '/ngo',
       payload: ngo,
     })
-
-    console.log(response.body)
 
     expect(response.statusCode).toBe(201)
 

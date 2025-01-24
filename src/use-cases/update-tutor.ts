@@ -6,7 +6,7 @@ import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 export interface UpdateTutorUseCaseParams {
   id: string
-  avatarUrl?: string
+  avatar?: string
   firstName?: string
   lastName?: string
   cpf?: string
@@ -33,7 +33,7 @@ export class UpdateTutorUseCase {
 
   async execute({
     id,
-    avatarUrl,
+    avatar,
     firstName,
     lastName,
     cpf,
@@ -74,7 +74,7 @@ export class UpdateTutorUseCase {
       firstName,
       lastName,
       cpf,
-      avatarUrl,
+      avatarUrl: avatar,
       email,
     })
 
