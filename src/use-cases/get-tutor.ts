@@ -2,20 +2,20 @@ import type { TutorsRepository } from '@/repositories/tutors-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import type { Tutor } from '@prisma/client'
 
-interface GetTutorProfileUseCaseRequest {
+interface GetTutorUseCaseRequest {
   tutorId: string
 }
 
-interface GetTutorProfileUseCaseResponse {
+interface GetTutorUseCaseResponse {
   tutor: Tutor
 }
 
-export class GetTutorProfileUseCase {
+export class GetTutorUseCase {
   constructor(private tutorsRepository: TutorsRepository) {}
 
   async execute({
     tutorId,
-  }: GetTutorProfileUseCaseRequest): Promise<GetTutorProfileUseCaseResponse> {
+  }: GetTutorUseCaseRequest): Promise<GetTutorUseCaseResponse> {
     const tutor = await this.tutorsRepository.findById(tutorId)
 
     if (!tutor) throw new ResourceNotFoundError()

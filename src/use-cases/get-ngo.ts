@@ -2,20 +2,20 @@ import type { NgosRepository } from '@/repositories/ngos-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import type { Ngo } from '@prisma/client'
 
-interface GetNgoProfileUseCaseRequest {
+interface GetNgoUseCaseRequest {
   ngoId: string
 }
 
-interface GetNgoProfileUseCaseResponse {
+interface GetNgoUseCaseResponse {
   ngo: Ngo
 }
 
-export class GetNgoProfileUseCase {
+export class GetNgoUseCase {
   constructor(private ngosRepository: NgosRepository) {}
 
   async execute({
     ngoId,
-  }: GetNgoProfileUseCaseRequest): Promise<GetNgoProfileUseCaseResponse> {
+  }: GetNgoUseCaseRequest): Promise<GetNgoUseCaseResponse> {
     const ngo = await this.ngosRepository.findById(ngoId)
 
     if (!ngo) throw new ResourceNotFoundError()

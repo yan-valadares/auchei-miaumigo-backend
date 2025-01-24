@@ -1,19 +1,16 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { InMemoryLostAnimalsRepository } from '@/repositories/in-memory/in-memory-lost-animals-repository'
-import { GetLostAnimalProfileUseCase } from './get-lost-animal'
-import {
-  makeCompleteLostAnimal,
-  makeLostAnimal,
-} from './factories/test/make-lost-animal'
+import { GetLostAnimalUseCase } from './get-lost-animal'
+import { makeLostAnimal } from './factories/test/make-lost-animal'
 
 let lostanimalsRepository: InMemoryLostAnimalsRepository
-let sut: GetLostAnimalProfileUseCase
+let sut: GetLostAnimalUseCase
 
 describe('Get lostanimal use case', () => {
   beforeEach(() => {
     lostanimalsRepository = new InMemoryLostAnimalsRepository()
-    sut = new GetLostAnimalProfileUseCase(lostanimalsRepository)
+    sut = new GetLostAnimalUseCase(lostanimalsRepository)
   })
 
   it('should be able to get a lost animal', async () => {
@@ -28,7 +25,7 @@ describe('Get lostanimal use case', () => {
     expect(lostAnimal.id).toEqual(expect.any(String))
   })
 
-  it('should not be able to get user profile with wrong id', async () => {
+  it('should not be able to get lost animal with wrong id', async () => {
     await expect(() =>
       sut.execute({
         lostAnimalId: 'wrong-id',

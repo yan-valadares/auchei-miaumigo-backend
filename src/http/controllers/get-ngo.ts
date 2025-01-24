@@ -1,4 +1,4 @@
-import { makeGetNgoProfileUseCase } from '@/use-cases/factories/make-get-ngo-profile-use-case'
+import { makeGetNgoUseCase } from '@/use-cases/factories/make-get-ngo-use-case'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 
@@ -9,7 +9,7 @@ export async function getNgo(request: FastifyRequest, reply: FastifyReply) {
 
   const { id } = paramsSchema.parse(request.params)
 
-  const getNgoProfile = makeGetNgoProfileUseCase()
+  const getNgoProfile = makeGetNgoUseCase()
 
   const { ngo } = await getNgoProfile.execute({
     ngoId: id,

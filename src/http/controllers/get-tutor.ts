@@ -1,4 +1,4 @@
-import { makeGetTutorProfileUseCase } from '@/use-cases/factories/make-get-tutor-profile-use-case'
+import { makeGetTutorUseCase } from '@/use-cases/factories/make-get-tutor-use-case'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 
@@ -9,9 +9,9 @@ export async function getTutor(request: FastifyRequest, reply: FastifyReply) {
 
   const { id } = paramsSchema.parse(request.params)
 
-  const getTutorProfile = makeGetTutorProfileUseCase()
+  const getTutor = makeGetTutorUseCase()
 
-  const { tutor } = await getTutorProfile.execute({
+  const { tutor } = await getTutor.execute({
     tutorId: id,
   })
 
