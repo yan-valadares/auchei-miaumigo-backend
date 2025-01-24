@@ -16,10 +16,6 @@ describe('Get ngo (e2e)', () => {
     await app.close()
   })
 
-  beforeEach(async () => {
-    await prisma.ngo.deleteMany()
-  })
-
   test('[GET] /ngo/id ', async () => {
     const ngo = makeCompleteNgo()
 

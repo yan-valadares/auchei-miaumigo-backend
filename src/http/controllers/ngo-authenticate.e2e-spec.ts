@@ -4,20 +4,14 @@ import { makeCompleteNgo } from '@/use-cases/factories/test/make-ngo'
 
 describe('Ngo authenticate (e2e)', () => {
   let app: ReturnType<typeof createApp>
-  let prisma: PrismaClient
 
   beforeAll(async () => {
     app = createApp()
-    prisma = new PrismaClient()
     await app.ready()
   })
 
   afterAll(async () => {
     await app.close()
-  })
-
-  beforeEach(async () => {
-    await prisma.ngo.deleteMany()
   })
 
   test('[POST] /ngo ', async () => {

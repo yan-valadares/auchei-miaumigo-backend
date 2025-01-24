@@ -16,10 +16,6 @@ describe('Ngo register (e2e)', () => {
     await app.close()
   })
 
-  beforeEach(async () => {
-    await prisma.ngo.deleteMany()
-  })
-
   test('[POST] /ngo ', async () => {
     const ngo = makeCompleteNgo()
 

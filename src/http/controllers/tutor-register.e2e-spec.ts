@@ -16,10 +16,6 @@ describe('Tutor register (e2e)', () => {
     await app.close()
   })
 
-  beforeEach(async () => {
-    await prisma.tutor.deleteMany()
-  })
-
   test('[POST] /tutor ', async () => {
     const tutor = makeCompleteTutor()
 

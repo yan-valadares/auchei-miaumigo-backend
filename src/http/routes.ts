@@ -8,6 +8,7 @@ import { updateTutor } from './controllers/update-tutor-profile'
 import { updateNgo } from './controllers/update-ngo-profile'
 import { getTutor } from './controllers/get-tutor'
 import { getNgo } from './controllers/get-ngo'
+import { createAnimal } from './controllers/create-animal'
 
 export async function appRoutes(app: FastifyInstance) {
   app.post('/tutor', tutorRegister)
@@ -22,4 +23,5 @@ export async function appRoutes(app: FastifyInstance) {
 
   app.put('/ngo', { onRequest: [verifyJwt] }, updateNgo)
   app.get('/ngo/:id', { onRequest: [verifyJwt] }, getNgo)
+  app.post('/animals', { onRequest: [verifyJwt] }, createAnimal)
 }

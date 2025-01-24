@@ -4,20 +4,14 @@ import { makeCompleteTutor } from '@/use-cases/factories/test/make-tutor'
 
 describe('Tutor authenticate (e2e)', () => {
   let app: ReturnType<typeof createApp>
-  let prisma: PrismaClient
 
   beforeAll(async () => {
     app = createApp()
-    prisma = new PrismaClient()
     await app.ready()
   })
 
   afterAll(async () => {
     await app.close()
-  })
-
-  beforeEach(async () => {
-    await prisma.tutor.deleteMany()
   })
 
   test('[POST] /tutor ', async () => {

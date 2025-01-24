@@ -17,10 +17,6 @@ describe('Tutor update (e2e)', () => {
     await app.close()
   })
 
-  beforeEach(async () => {
-    await prisma.tutor.deleteMany()
-  })
-
   test('[PUT] /tutor ', async () => {
     const tutor = makeCompleteTutor()
 

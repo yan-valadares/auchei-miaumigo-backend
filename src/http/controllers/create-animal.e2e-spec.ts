@@ -1,9 +1,9 @@
 import { PrismaClient } from '@prisma/client'
 import { createApp } from '../create-test-app'
 import { makeCompleteNgo } from '@/use-cases/factories/test/make-ngo'
-import { randomUUID } from 'node:crypto'
+import { makeCompleteAnimal } from '@/use-cases/factories/test/make-animal'
 
-describe('Ngo update (e2e)', () => {
+describe('Create animal (e2e)', () => {
   let app: ReturnType<typeof createApp>
   let prisma: PrismaClient
 
@@ -17,10 +17,8 @@ describe('Ngo update (e2e)', () => {
     await app.close()
   })
 
-  test('[PUT] /ngo ', async () => {
-    const ngo = makeCompleteNgo({
-      id: randomUUID(),
-    })
+  test('[POST] /animals ', async () => {
+    const ngo = makeCompleteNgo()
 
     await app.inject({
       method: 'POST',
@@ -39,25 +37,17 @@ describe('Ngo update (e2e)', () => {
 
     const { token } = JSON.parse(body)
 
+    const animal = makeCompleteAnimal()
+
     const response = await app.inject({
-      method: 'PUT',
-      url: '/ngo',
-      payload: {
-        id: ngo.id,
-        ngoName: 'Cuidadogs',
-      },
+      method: 'POST',
+      url: '/animals',
+      payload: animal,
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
 
-    const ngoOnDatabase = await prisma.ngo.findUnique({
-      where: {
-        email: ngo.email,
-      },
-    })
-
-    expect(response.statusCode).toEqual(204)
-    expect(ngoOnDatabase?.ngoName).toEqual('Cuidadogs')
+    expect(response.statusCode).toEqual(201)
   })
 })

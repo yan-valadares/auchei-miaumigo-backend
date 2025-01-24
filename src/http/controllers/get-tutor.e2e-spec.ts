@@ -16,10 +16,6 @@ describe('Get tutor (e2e)', () => {
     await app.close()
   })
 
-  beforeEach(async () => {
-    await prisma.tutor.deleteMany()
-  })
-
   test('[GET] /tutor/id ', async () => {
     const tutor = makeCompleteTutor()
 
