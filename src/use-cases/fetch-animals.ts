@@ -4,8 +4,8 @@ import type { Animal } from '@prisma/client'
 interface FetchAnimalsUseCaseParams {
   state?: string
   city?: string
-  animalSpecies?: string
   animalAge?: string
+  animalSpecies?: string
   animalSize?: string
   animalSex?: string
   animalNgo?: string

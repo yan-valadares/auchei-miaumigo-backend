@@ -1,6 +1,10 @@
 import { prisma } from '@/lib/prisma'
 import type { Prisma, Animal } from '@prisma/client'
-import type { AnimalsRepository, findManyParams } from '../animals-repository'
+import type {
+  AnimalsRepository,
+  findManyByNgoIdParams,
+  findManyParams,
+} from '../animals-repository'
 
 export class PrismaAnimalsRepository implements AnimalsRepository {
   async update(data: Prisma.AnimalUpdateInput): Promise<Animal> {
@@ -53,10 +57,19 @@ export class PrismaAnimalsRepository implements AnimalsRepository {
     return animals
   }
 
-  async findManyByNgoId(page: number, ngoId: string): Promise<Animal[]> {
+  async findManyByNgoId(
+    page: number,
+    ngoId: string,
+    params: findManyByNgoIdParams
+  ): Promise<Animal[]> {
     const animals = await prisma.animal.findMany({
       where: {
         ngo_id: ngoId,
+        name: params?.animalName ? params.animalName : undefined,
+        sex: params?.animalSex ? params.animalSex : undefined,
+        size: params?.animalSize ? params.animalSize : undefined,
+
+        species: params?.animalSpecies ? params.animalSpecies : undefined,
       },
       take: 9,
       skip: (page - 1) * 9,

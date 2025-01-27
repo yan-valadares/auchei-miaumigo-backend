@@ -24,7 +24,7 @@ export async function fetchAnimals(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
-  const fetchAnimalsBodySchema = z.object({
+  const fetchAnimalsQuerySchema = z.object({
     state: z.string().max(2).optional(),
     city: z.string().optional(),
     animalSpecies: z.string().optional(),
@@ -35,7 +35,7 @@ export async function fetchAnimals(
     page: z.coerce.number(),
   })
 
-  const animalInformations = fetchAnimalsBodySchema.parse(request.query)
+  const animalInformations = fetchAnimalsQuerySchema.parse(request.query)
 
   const fetchAnimals = makeFetchAnimalsUseCase()
 
