@@ -4,10 +4,20 @@ import { EmailAlrealdyExistsError } from '@/use-cases/errors/email-already-exist
 import { WrongCredentialsError } from '@/use-cases/errors/wrong-credentials-error'
 import { makeNgoRegisterUseCase } from '@/use-cases/factories/make-ngo-register-use-case'
 
+export interface NgoRegisterResponse {
+  logoUrl: string | null
+  ngoName: string
+  adminFirstName: string
+  adminLastName: string
+  email: string
+  password: string
+  id: string
+  created_at: Date
+}
 export async function ngoRegister(
   request: FastifyRequest,
   reply: FastifyReply
-) {
+): Promise<NgoRegisterResponse> {
   const ngoRegisterBodySchema = z.object({
     logoUrl: z.string(),
     ngoName: z.string().min(2),
@@ -29,7 +39,12 @@ export async function ngoRegister(
   try {
     const ngoRegisterUseCase = makeNgoRegisterUseCase()
 
-    await ngoRegisterUseCase.execute(ngoInfomations)
+    const { ngo } = await ngoRegisterUseCase.execute(ngoInfomations)
+
+    return reply.status(201).send({
+      ...ngo,
+      password: undefined,
+    })
   } catch (err) {
     if (err instanceof EmailAlrealdyExistsError) {
       return reply.status(409).send({ message: err.message })
@@ -40,6 +55,4 @@ export async function ngoRegister(
 
     throw err
   }
-
-  return reply.status(201).send()
 }

@@ -15,6 +15,7 @@ import { getLostAnimal } from './controllers/get-lost-animal'
 import { fetchAnimals } from './controllers/fetch-animals'
 import { fetchLostAnimals } from './controllers/fetch-lost-animals'
 import { fetchNgoAnimals } from './controllers/fetch-ngo-animals'
+import { deleteAnimal } from './controllers/delete-animal'
 
 export async function appRoutes(app: FastifyInstance) {
   app.post('/tutor', tutorRegister)
@@ -35,6 +36,7 @@ export async function appRoutes(app: FastifyInstance) {
   app.get('/ngo/:id', { onRequest: [verifyJwt] }, getNgo)
   app.post('/animals', { onRequest: [verifyJwt] }, createAnimal)
   app.get('/my-animals/:id', { onRequest: [verifyJwt] }, fetchNgoAnimals)
+  app.delete('/animals/:id', { onRequest: [verifyJwt] }, deleteAnimal)
 
   app.get('/animals/:id', { onRequest: [verifyJwt] }, getAnimal)
   app.get('/animals', { onRequest: [verifyJwt] }, fetchAnimals)

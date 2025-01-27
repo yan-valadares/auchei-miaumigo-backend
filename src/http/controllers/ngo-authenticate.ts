@@ -3,10 +3,16 @@ import { z } from 'zod'
 import { WrongCredentialsError } from '@/use-cases/errors/wrong-credentials-error'
 import { makeNgoAuthenticateUseCase } from '@/use-cases/factories/make-ngo-authenticate-use-case'
 
+export interface NgoAuthenticateResponse {
+  token: {
+    sub: string
+  }
+}
+
 export async function ngoAuthenticate(
   request: FastifyRequest,
   reply: FastifyReply
-) {
+): Promise<NgoAuthenticateResponse> {
   const ngoAuthenticateBodySchema = z.object({
     email: z.string().email(),
     password: z.string(),

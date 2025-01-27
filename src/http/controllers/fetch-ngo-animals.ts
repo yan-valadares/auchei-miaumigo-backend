@@ -40,9 +40,6 @@ export async function fetchNgoAnimals(
 
   const animalInformations = fetchNgoAnimalsQuerySchema.parse(request.query)
 
-  console.log('id: ' + id)
-  console.log('animalInformations: ' + animalInformations)
-
   const fetchNgoAnimals = makeFetchNgoAnimalsUseCase()
 
   const { animals } = await fetchNgoAnimals.execute({

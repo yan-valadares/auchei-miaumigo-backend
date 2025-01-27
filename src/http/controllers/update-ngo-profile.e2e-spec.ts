@@ -57,7 +57,7 @@ describe('Ngo update (e2e)', () => {
       },
     })
 
-    expect(response.statusCode).toEqual(204)
+    expect(response.statusCode).toEqual(200)
     expect(ngoOnDatabase?.ngoName).toEqual('Cuidadogs')
   })
 })

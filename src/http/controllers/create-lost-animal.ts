@@ -2,10 +2,22 @@ import type { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { makeCreateLostAnimalUseCase } from '@/use-cases/factories/make-create-lost-animal-use-case'
 
+export interface CreateLostAnimalInterface {
+  name: string
+  sex: string
+  imageUrl: string | null
+  state: string
+  city: string
+  lastPlaceSeen: string
+  lostDate: Date
+  id: string
+  created_at: Date
+  tutor_id: string
+}
 export async function createLostAnimal(
   request: FastifyRequest,
   reply: FastifyReply
-) {
+): Promise<CreateLostAnimalInterface> {
   const createLostAnimalBodySchema = z.object({
     name: z.string(),
     sex: z.string(),
@@ -20,10 +32,12 @@ export async function createLostAnimal(
 
   const createLostAnimalUseCase = makeCreateLostAnimalUseCase()
 
-  await createLostAnimalUseCase.execute({
+  const { lostAnimal } = await createLostAnimalUseCase.execute({
     tutorId: request.user.sub,
     ...lostAnimalInformations,
   })
 
-  return reply.status(201).send()
+  return reply.status(201).send({
+    lostAnimal,
+  })
 }

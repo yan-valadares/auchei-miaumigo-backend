@@ -16,10 +16,14 @@ export class DeleteAnimalUseCase {
   async execute({ animalId, ngoId }: DeleteAnimalUseCaseParams): Promise<void> {
     const animalToBeDeleted = await this.animalsRepository.findById(animalId)
 
+    console.log('ngo id: ' + ngoId)
+    console.log('id animal achado: ' + animalToBeDeleted?.id)
+    console.log('ngo id animal achado: ' + animalToBeDeleted?.ngo_id)
+
     if (animalToBeDeleted?.ngo_id !== ngoId) throw new NotAllowedError()
 
-    this.requestsRepository.deleteManyByAnimalId(animalId)
+    await this.requestsRepository.deleteManyByAnimalId(animalId)
 
-    this.animalsRepository.delete(animalId)
+    await this.animalsRepository.delete(animalId)
   }
 }

@@ -2,10 +2,25 @@ import type { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { makeCreateAnimalUseCase } from '@/use-cases/factories/make-create-animal-use-case'
 
+export interface CreateAnimalResponse {
+  name: string
+  sex: string
+  weight: number
+  age: string
+  ageGroup: string
+  species: string
+  size: string
+  tags: string[]
+  imageUrl: string | null
+  description: string | null
+  id: string
+  created_at: Date
+  ngo_id: string
+}
 export async function createAnimal(
   request: FastifyRequest,
   reply: FastifyReply
-) {
+): Promise<CreateAnimalResponse> {
   const createAnimalBodySchema = z.object({
     name: z.string(),
     sex: z.string(),
@@ -23,10 +38,12 @@ export async function createAnimal(
 
   const createAnimalUseCase = makeCreateAnimalUseCase()
 
-  await createAnimalUseCase.execute({
+  const { animal } = await createAnimalUseCase.execute({
     ngoId: request.user.sub,
     ...animalInformations,
   })
 
-  return reply.status(201).send()
+  return reply.status(201).send({
+    animal,
+  })
 }

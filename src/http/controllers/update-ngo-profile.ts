@@ -24,9 +24,14 @@ export async function updateNgo(request: FastifyRequest, reply: FastifyReply) {
   try {
     const updateNgoUseCase = makeUpdateNgoUseCase()
 
-    await updateNgoUseCase.execute({
+    const { updatedNgo } = await updateNgoUseCase.execute({
       id: request.user.sub,
       ...ngoInfomations,
+    })
+
+    return reply.status(200).send({
+      ...updatedNgo,
+      password: undefined,
     })
   } catch (err) {
     if (err instanceof EmailAlrealdyExistsError) {
@@ -38,6 +43,4 @@ export async function updateNgo(request: FastifyRequest, reply: FastifyReply) {
 
     throw err
   }
-
-  return reply.status(204).send()
 }

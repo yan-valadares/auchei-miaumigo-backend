@@ -61,7 +61,7 @@ describe('Tutor update (e2e)', () => {
       },
     })
 
-    expect(response.statusCode).toEqual(204)
+    expect(response.statusCode).toEqual(200)
     expect(tutorOnDatabase?.firstName).toEqual('John')
   })
 })

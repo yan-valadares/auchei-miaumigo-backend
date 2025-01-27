@@ -28,9 +28,14 @@ export async function updateTutor(
   try {
     const updateTutorUseCase = makeUpdateTutorUseCase()
 
-    await updateTutorUseCase.execute({
+    const { updatedTutor } = await updateTutorUseCase.execute({
       id: request.user.sub,
       ...tutorInfomations,
+    })
+
+    return reply.status(200).send({
+      ...updatedTutor,
+      password: undefined,
     })
   } catch (err) {
     if (err instanceof EmailAlrealdyExistsError) {
@@ -42,6 +47,4 @@ export async function updateTutor(
 
     throw err
   }
-
-  return reply.status(204).send()
 }

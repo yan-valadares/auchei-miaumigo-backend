@@ -30,7 +30,12 @@ export async function tutorRegister(
   try {
     const tutorRegisterUseCase = makeTutorRegisterUseCase()
 
-    await tutorRegisterUseCase.execute(tutorInfomations)
+    const { tutor } = await tutorRegisterUseCase.execute(tutorInfomations)
+
+    return reply.status(201).send({
+      ...tutor,
+      password: undefined,
+    })
   } catch (err) {
     if (err instanceof EmailAlrealdyExistsError) {
       return reply.status(409).send({ message: err.message })
@@ -41,6 +46,4 @@ export async function tutorRegister(
 
     throw err
   }
-
-  return reply.status(201).send()
 }
