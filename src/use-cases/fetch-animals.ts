@@ -38,6 +38,7 @@ export class FetchAnimalsUseCase {
       animalSex,
       animalSize,
     }
+
     const animals = await this.animalRepository.findMany(page, params)
 
     return { animals }

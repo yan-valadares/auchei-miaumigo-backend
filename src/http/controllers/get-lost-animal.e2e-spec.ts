@@ -58,8 +58,6 @@ describe('Get lost animal (e2e)', () => {
 
     const url = `/lost-animals/${id}`
 
-    console.log(url)
-
     const response = await app.inject({
       method: 'GET',
       url,

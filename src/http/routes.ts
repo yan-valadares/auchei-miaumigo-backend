@@ -12,6 +12,8 @@ import { createAnimal } from './controllers/create-animal'
 import { createLostAnimal } from './controllers/create-lost-animal'
 import { getAnimal } from './controllers/get-animal'
 import { getLostAnimal } from './controllers/get-lost-animal'
+import { fetchAnimals } from './controllers/fetch-animals'
+import { fetchLostAnimals } from './controllers/fetch-lost-animals'
 
 export async function appRoutes(app: FastifyInstance) {
   app.post('/tutor', tutorRegister)
@@ -21,6 +23,7 @@ export async function appRoutes(app: FastifyInstance) {
   app.post('/ngo/sessions', ngoAuthenticate)
 
   app.get('/lost-animals/:id', getLostAnimal)
+  app.get('/lost-animals', fetchLostAnimals)
 
   // Auth Routes
   app.put('/tutor', { onRequest: [verifyJwt] }, updateTutor)
@@ -32,4 +35,5 @@ export async function appRoutes(app: FastifyInstance) {
   app.post('/animals', { onRequest: [verifyJwt] }, createAnimal)
 
   app.get('/animals/:id', { onRequest: [verifyJwt] }, getAnimal)
+  app.get('/animals', { onRequest: [verifyJwt] }, fetchAnimals)
 }

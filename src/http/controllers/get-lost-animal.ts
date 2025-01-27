@@ -14,13 +14,9 @@ export async function getLostAnimal(
 
   const getLostAnimal = makeGetLostAnimalUseCase()
 
-  console.log(id)
-
   const { lostAnimal } = await getLostAnimal.execute({
     lostAnimalId: id,
   })
-
-  console.log(lostAnimal)
 
   return reply.status(200).send({
     lostanimal: {

@@ -18,8 +18,6 @@ export class GetLostAnimalUseCase {
   }: GetLostAnimalUseCaseRequest): Promise<GetLostAnimalUseCaseResponse> {
     const lostAnimal = await this.lostAnimalsRepository.findById(lostAnimalId)
 
-    console.log('PASSOU AQUI')
-
     if (!lostAnimal) throw new ResourceNotFoundError()
 
     return { lostAnimal }
