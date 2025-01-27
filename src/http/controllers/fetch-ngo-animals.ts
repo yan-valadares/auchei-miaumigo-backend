@@ -23,7 +23,7 @@ export interface FetchNgoAnimalsResponse {
 export async function fetchNgoAnimals(
   request: FastifyRequest,
   reply: FastifyReply
-) {
+): Promise<FetchNgoAnimalsResponse> {
   const fetchNgoAnimalsQuerySchema = z.object({
     animalName: z.string().optional(),
     animalSpecies: z.string().optional(),
