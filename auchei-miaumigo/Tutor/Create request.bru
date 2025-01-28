@@ -1,0 +1,21 @@
+meta {
+  name: Create request
+  type: http
+  seq: 8
+}
+
+post {
+  url: http://localhost:3333/requests
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5ZmU1ODdiNi1jMGNkLTQ1Y2YtYmI2OS0xNjYxZGNmOWFjYWEiLCJpYXQiOjE3MzgxMDE0NzZ9.E6Hv8afSMsw0X6vPpe_asI7tQGR6wHRxOFD6OqtIgWk
+}
+
+body:json {
+  {
+    "animalId": "837bf2ee-e865-4dfc-9c4d-59cc2dcc8941"
+  }
+}

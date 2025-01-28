@@ -10,7 +10,23 @@ export class PrismaNgosRepository implements NgosRepository {
       },
     })
 
-    return ngo
+    if (!ngo) return null
+
+    const ngoAddress = await prisma.address.findUnique({
+      where: { ngo_id: ngo?.id },
+    })
+
+    const ngoPhone = await prisma.phone.findUnique({
+      where: { ngo_id: ngo?.id },
+    })
+
+    const ngoInformations = {
+      ...ngo,
+      ...(ngoAddress || {}),
+      ...(ngoPhone || {}),
+    }
+
+    return ngoInformations
   }
   async findByEmail(email: string): Promise<Ngo | null> {
     const ngo = await prisma.ngo.findUnique({
@@ -37,8 +53,27 @@ export class PrismaNgosRepository implements NgosRepository {
       skip: (page - 1) * 12,
     })
 
-    return ngos
+    const ngosWithDetails = await Promise.all(
+      ngos.map(async ngo => {
+        const ngoAddress = await prisma.address.findUnique({
+          where: { ngo_id: ngo.id },
+        })
+
+        const ngoPhone = await prisma.phone.findUnique({
+          where: { ngo_id: ngo.id },
+        })
+
+        return {
+          ...ngo,
+          ...(ngoAddress || {}),
+          ...(ngoPhone || {}),
+        }
+      })
+    )
+
+    return ngosWithDetails
   }
+
   async create(data: Prisma.NgoCreateInput): Promise<Ngo> {
     const ngo = await prisma.ngo.create({
       data,

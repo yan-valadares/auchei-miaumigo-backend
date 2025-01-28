@@ -1,0 +1,23 @@
+meta {
+  name: Fetch ngo requests
+  type: http
+  seq: 8
+}
+
+get {
+  url: http://localhost:3333/my-requests/21545714-f21a-4643-a4dd-86520d80cdbf?animalName=&animalSpecies=&tutorName=&status=&page=1
+  body: none
+  auth: bearer
+}
+
+params:query {
+  animalName: 
+  animalSpecies: 
+  tutorName: 
+  status: 
+  page: 1
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMTU0NTcxNC1mMjFhLTQ2NDMtYTRkZC04NjUyMGQ4MGNkYmYiLCJpYXQiOjE3MzgxMDEyMTJ9.vizZW5av3Hkj5W4iY41c0pxRcNAgdTrKO7_41fB33Pk
+}

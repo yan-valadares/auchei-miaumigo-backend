@@ -1,0 +1,27 @@
+meta {
+  name: Create lost animal
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3333/lost-animals
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5ZmU1ODdiNi1jMGNkLTQ1Y2YtYmI2OS0xNjYxZGNmOWFjYWEiLCJpYXQiOjE3MzgxMDE0NzZ9.E6Hv8afSMsw0X6vPpe_asI7tQGR6wHRxOFD6OqtIgWk
+}
+
+body:json {
+  {
+    "name": "Paçoca",
+    "sex": "male",
+    "imageUrl": "https://randompicture.com",
+    "state": "SP",
+    "city": "Campinas",
+    "lastPlaceSeen": "Parque do Taquaral",
+    "lostDate": "2025-01-28T12:00:00Z"
+  }
+}

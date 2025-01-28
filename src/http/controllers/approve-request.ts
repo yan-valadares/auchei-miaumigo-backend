@@ -13,11 +13,11 @@ export async function approveRequest(
   req: FastifyRequest,
   reply: FastifyReply
 ): Promise<ApproveRequestResponse> {
-  const approveRequestParamsSchema = z.object({
+  const approveRequestBodySchema = z.object({
     requestId: z.string(),
   })
 
-  const requestInfomations = approveRequestParamsSchema.parse(req.params)
+  const requestInfomations = approveRequestBodySchema.parse(req.body)
 
   try {
     const approveRequest = makeApproveRequestUseCase()

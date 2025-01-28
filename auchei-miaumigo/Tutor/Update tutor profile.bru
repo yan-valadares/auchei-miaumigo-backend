@@ -1,0 +1,32 @@
+meta {
+  name: Update tutor profile
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:3333/tutor
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5ZmU1ODdiNi1jMGNkLTQ1Y2YtYmI2OS0xNjYxZGNmOWFjYWEiLCJpYXQiOjE3MzgxMDE0NzZ9.E6Hv8afSMsw0X6vPpe_asI7tQGR6wHRxOFD6OqtIgWk
+}
+
+body:json {
+  {
+    "avatar": "https://gmail.com/avatar.jpg",
+    "firstName": "João",
+    "lastName": "Campos",
+    "email": "joaocampos@email.com",
+    "cep": "12245633",
+    "city": "Rio de Janeiro",
+    "state": "RJ",
+    "cpf": "12345678911",
+    "houseNumber": "223",
+    "houseType": "house",  
+    "phone": "11987654431",
+    "streetName": "Rua da Paz"
+  }
+}

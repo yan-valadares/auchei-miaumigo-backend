@@ -1,0 +1,26 @@
+meta {
+  name: Fetch Animals
+  type: http
+  seq: 7
+}
+
+get {
+  url: http://localhost:3333/animals?state=&city=&animalSpecies=&animalAge=&animalSize=&animalSex=&animalNgo=&page=1
+  body: none
+  auth: bearer
+}
+
+params:query {
+  state: 
+  city: 
+  animalSpecies: 
+  animalAge: 
+  animalSize: 
+  animalSex: 
+  animalNgo: 
+  page: 1
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5ZmU1ODdiNi1jMGNkLTQ1Y2YtYmI2OS0xNjYxZGNmOWFjYWEiLCJpYXQiOjE3MzgxMDE0NzZ9.E6Hv8afSMsw0X6vPpe_asI7tQGR6wHRxOFD6OqtIgWk
+}

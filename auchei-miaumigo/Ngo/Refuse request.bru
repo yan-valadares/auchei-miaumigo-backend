@@ -1,0 +1,21 @@
+meta {
+  name: Refuse request
+  type: http
+  seq: 9
+}
+
+put {
+  url: http://localhost:3333/requests/refuse
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMTU0NTcxNC1mMjFhLTQ2NDMtYTRkZC04NjUyMGQ4MGNkYmYiLCJpYXQiOjE3MzgxMDEyMTJ9.vizZW5av3Hkj5W4iY41c0pxRcNAgdTrKO7_41fB33Pk
+}
+
+body:json {
+  {
+    "requestId": "2cc759ac-957b-4efa-8f61-915db558b4ad"
+  }
+}

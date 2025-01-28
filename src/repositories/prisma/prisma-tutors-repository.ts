@@ -10,7 +10,23 @@ export class PrismaTutorsRepository implements TutorsRepository {
       },
     })
 
-    return tutor
+    const tutorAddress = await prisma.address.findUnique({
+      where: { tutor_id: tutor?.id },
+    })
+
+    const tutorPhone = await prisma.phone.findUnique({
+      where: { tutor_id: tutor?.id },
+    })
+
+    if (!tutor) return null
+
+    const tutorInformations = {
+      ...tutor,
+      ...(tutorAddress || {}),
+      ...(tutorPhone || {}),
+    }
+
+    return tutorInformations
   }
 
   async update(data: Prisma.TutorUpdateInput): Promise<Tutor> {

@@ -13,11 +13,11 @@ export async function refuseRequest(
   req: FastifyRequest,
   reply: FastifyReply
 ): Promise<RefuseRequestResponse> {
-  const refuseRequestParamsSchema = z.object({
+  const refuseRequestBodySchema = z.object({
     requestId: z.string(),
   })
 
-  const requestInfomations = refuseRequestParamsSchema.parse(req.params)
+  const requestInfomations = refuseRequestBodySchema.parse(req.body)
 
   try {
     const refuseRequest = makeRefuseRequestUseCase()

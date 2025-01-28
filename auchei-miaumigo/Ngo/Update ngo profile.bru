@@ -1,0 +1,31 @@
+meta {
+  name: Update ngo profile
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:3333/ngo
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMTU0NTcxNC1mMjFhLTQ2NDMtYTRkZC04NjUyMGQ4MGNkYmYiLCJpYXQiOjE3MzgxMDEyMTJ9.vizZW5av3Hkj5W4iY41c0pxRcNAgdTrKO7_41fB33Pk
+}
+
+body:json {
+  {
+    "logoUrl": "https://gmail.com/avatar.jpg",
+    "ngoName": "Cuidadogs",
+    "adminFirstName": "Yan",
+    "adminLastName": "Valadares",
+    "email": "yanvaladares@email.com", 
+    "phone": "11987656323",
+    "cep": "12245444",
+    "city": "Rio de Janeiro",
+    "state": "RJ",
+    "houseNumber": "223",
+    "streetName": "Rua das Águas"
+  }
+}

@@ -1,0 +1,30 @@
+meta {
+  name: Create animal
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3333/animals
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMTU0NTcxNC1mMjFhLTQ2NDMtYTRkZC04NjUyMGQ4MGNkYmYiLCJpYXQiOjE3MzgxMDEyMTJ9.vizZW5av3Hkj5W4iY41c0pxRcNAgdTrKO7_41fB33Pk
+}
+
+body:json {
+  {
+    "name": "Teddy",
+    "sex": "male",
+    "weight": 2,
+    "age": "11 years",
+    "ageGroup": "old",
+    "species": "dog",
+    "size": "small",
+    "tags": [ "sociable", "calm", "care" ],
+    "imageUrl": "https://teddy-tarragon.biz",
+    "description": "Velinho, ranzinza, mas muito amoroso e legal"
+  }
+}

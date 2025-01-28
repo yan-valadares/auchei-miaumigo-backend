@@ -19,7 +19,7 @@ export async function getLostAnimal(
   })
 
   return reply.status(200).send({
-    lostanimal: {
+    lostAnimal: {
       ...lostAnimal,
       created_at: undefined,
     },

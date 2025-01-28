@@ -88,11 +88,12 @@ describe('Refuse request (e2e)', () => {
       },
     })
 
-    const url = `/requests/refuse/${createdRequest?.id}`
-
     const response = await app.inject({
       method: 'PUT',
-      url,
+      url: '/requests/refuse',
+      payload: {
+        requestId: createdRequest?.id,
+      },
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -46,17 +46,9 @@ export async function appRoutes(app: FastifyInstance) {
   app.post('/animals', { onRequest: [verifyJwt] }, createAnimal)
   app.get('/my-animals/:id', { onRequest: [verifyJwt] }, fetchNgoAnimals)
   app.get('/my-requests/:id', { onRequest: [verifyJwt] }, fetchNgoRequests)
-  app.delete('/animals/:id', { onRequest: [verifyJwt] }, deleteAnimal)
-  app.put(
-    '/requests/approve/:requestId',
-    { onRequest: [verifyJwt] },
-    approveRequest
-  )
-  app.put(
-    '/requests/refuse/:requestId',
-    { onRequest: [verifyJwt] },
-    refuseRequest
-  )
+  app.delete('/animals', { onRequest: [verifyJwt] }, deleteAnimal)
+  app.put('/requests/approve', { onRequest: [verifyJwt] }, approveRequest)
+  app.put('/requests/refuse', { onRequest: [verifyJwt] }, refuseRequest)
 
   app.get('/animals/:id', { onRequest: [verifyJwt] }, getAnimal)
   app.get('/animals', { onRequest: [verifyJwt] }, fetchAnimals)

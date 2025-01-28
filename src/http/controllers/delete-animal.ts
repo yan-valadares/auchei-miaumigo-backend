@@ -6,16 +6,16 @@ export async function deleteAnimal(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
-  const paramsSchema = z.object({
-    id: z.string().uuid(),
+  const bodySchema = z.object({
+    animalId: z.string().uuid(),
   })
 
-  const { id } = paramsSchema.parse(request.params)
+  const { animalId } = bodySchema.parse(request.body)
 
   const deleteAnimal = makeDeleteAnimalUseCase()
 
   await deleteAnimal.execute({
-    animalId: id,
+    animalId,
     ngoId: request.user.sub,
   })
 

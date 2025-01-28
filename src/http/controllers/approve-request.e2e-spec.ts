@@ -88,11 +88,12 @@ describe('Approve request (e2e)', () => {
       },
     })
 
-    const url = `/requests/approve/${createdRequest?.id}`
-
     const response = await app.inject({
       method: 'PUT',
-      url,
+      url: '/requests/approve',
+      payload: {
+        requestId: createdRequest?.id,
+      },
       headers: {
         Authorization: `Bearer ${token}`,
       },
