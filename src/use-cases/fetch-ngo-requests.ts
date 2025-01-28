@@ -16,7 +16,7 @@ interface FetchNgoRequestsResponse {
   requests: Request[]
 }
 
-export class FetchNgoRequestUseCase {
+export class FetchNgoRequestsUseCase {
   constructor(
     private ngosRepository: NgosRepository,
     private requestsRepository: RequestsRepository

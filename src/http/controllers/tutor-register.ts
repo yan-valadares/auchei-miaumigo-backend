@@ -4,10 +4,20 @@ import { EmailAlrealdyExistsError } from '@/use-cases/errors/email-already-exist
 import { WrongCredentialsError } from '@/use-cases/errors/wrong-credentials-error'
 import { makeTutorRegisterUseCase } from '@/use-cases/factories/make-tutor-register-use-case'
 
+export interface TutorRegisterResponse {
+  firstName: string
+  lastName: string
+  email: string
+  cpf: string
+  id: string
+  created_at: Date
+  avatarUrl: string | null
+}
+
 export async function tutorRegister(
   request: FastifyRequest,
   reply: FastifyReply
-) {
+): Promise<TutorRegisterResponse> {
   const tutorRegisterBodySchema = z.object({
     avatar: z.string(),
     firstName: z.string().min(2),

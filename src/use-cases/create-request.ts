@@ -2,10 +2,15 @@ import type { AnimalsRepository } from '@/repositories/animals-repository'
 import type { RequestsRepository } from '@/repositories/requests-repository'
 import type { TutorsRepository } from '@/repositories/tutors-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import type { Request } from '@prisma/client'
 
 export interface CreateRequestUseCaseParams {
   tutorId: string
   animalId: string
+}
+
+interface CreateRequestUseCaseResponse {
+  request: Request
 }
 
 export class CreateRequestUseCase {
@@ -18,7 +23,7 @@ export class CreateRequestUseCase {
   async execute({
     animalId,
     tutorId,
-  }: CreateRequestUseCaseParams): Promise<void> {
+  }: CreateRequestUseCaseParams): Promise<CreateRequestUseCaseResponse> {
     const tutor = await this.tutorsRepository.findById(tutorId)
 
     if (!tutor) throw new ResourceNotFoundError()
@@ -27,10 +32,12 @@ export class CreateRequestUseCase {
 
     if (!animal) throw new ResourceNotFoundError()
 
-    await this.requestsRepository.create({
+    const request = await this.requestsRepository.create({
       tutorId,
       animalId,
       status: 'analysing',
     })
+
+    return { request }
   }
 }

@@ -96,7 +96,7 @@ model Request {
   id        String @id @default(uuid())
   tutor     Tutor  @relation(fields: [tutor_id], references: [id])
   tutor_id  String
-  animal    Animal @relation(fields: [animal_id], references: [id])
+  animal    Animal @relation(fields: [animal_id], references: [id], onDelete: Cascade)
   animal_id String
   status    String
 

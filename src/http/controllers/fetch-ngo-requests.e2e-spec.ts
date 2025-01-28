@@ -2,9 +2,10 @@ import { createApp } from '../create-test-app'
 import { makeCompleteNgo } from '@/use-cases/factories/test/make-ngo'
 import { makeCompleteAnimal } from '@/use-cases/factories/test/make-animal'
 import { PrismaClient } from '@prisma/client'
-import type { FetchAnimalsResponse } from './fetch-animals'
+import { makeCompleteTutor } from '@/use-cases/factories/test/make-tutor'
+import type { FetchNgoRequestsResponse } from './fetch-ngo-requests'
 
-describe('Fetch ngo animals (e2e)', () => {
+describe('Fetch ngo request (e2e)', () => {
   let app: ReturnType<typeof createApp>
   let prisma: PrismaClient
 
@@ -18,13 +19,17 @@ describe('Fetch ngo animals (e2e)', () => {
     await app.close()
   })
 
-  test('[GET] /my-animals/id', async () => {
+  test('[GET] /my-request/id', async () => {
     const ngo = makeCompleteNgo()
 
     await app.inject({
       method: 'POST',
       url: '/ngo',
       payload: ngo,
+    })
+
+    const createdNgo = await prisma.ngo.findUnique({
+      where: { email: ngo.email },
     })
 
     const { body } = await app.inject({
@@ -53,40 +58,36 @@ describe('Fetch ngo animals (e2e)', () => {
 
     await Promise.all(promises)
 
-    const anotherNgo = makeCompleteNgo({
-      email: 'cuidadogs@email.com',
-    })
+    const tutor = makeCompleteTutor()
 
     await app.inject({
       method: 'POST',
-      url: '/ngo',
-      payload: anotherNgo,
+      url: '/tutor',
+      payload: tutor,
     })
 
-    const { body: anotherBody } = await app.inject({
+    const { body: tutorBody } = await app.inject({
       method: 'POST',
-      url: '/ngo/sessions',
+      url: '/tutor/sessions',
       payload: {
-        email: anotherNgo.email,
-        password: anotherNgo.password,
+        email: tutor.email,
+        password: tutor.password,
       },
     })
 
-    const createdNgo = await prisma.ngo.findUnique({
-      where: { email: anotherNgo.email },
-    })
+    const { token: tutorToken } = JSON.parse(tutorBody)
 
-    const { token: anotherToken } = JSON.parse(anotherBody)
+    const animals = await prisma.animal.findMany()
 
-    promises = Array.from({ length: 4 }, () => {
-      const animal = makeCompleteAnimal()
-
+    promises = Array.from({ length: 6 }, () => {
       return app.inject({
         method: 'POST',
-        url: '/animals',
-        payload: animal,
+        url: '/requests',
+        payload: {
+          animalId: animals[0].id,
+        },
         headers: {
-          Authorization: `Bearer ${anotherToken}`,
+          Authorization: `Bearer ${tutorToken}`,
         },
       })
     })
@@ -95,20 +96,18 @@ describe('Fetch ngo animals (e2e)', () => {
 
     const response = await app.inject({
       method: 'GET',
-      url: `/my-animals/${createdNgo?.id}?&page=1`,
+      url: `/my-requests/${createdNgo?.id}?&page=1`,
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
 
-    const responseBody = JSON.parse(response.body) as FetchAnimalsResponse
+    const responseBody = JSON.parse(response.body) as FetchNgoRequestsResponse
 
     expect(response.statusCode).toEqual(200)
 
-    expect(responseBody.animals).toHaveLength(4)
-
-    for (const animal of responseBody.animals) {
-      expect(animal.ngo_id).toEqual(createdNgo?.id)
+    for (const requests of responseBody.requests) {
+      expect(requests.ngo_id).toEqual(createdNgo?.id)
     }
   })
 })
